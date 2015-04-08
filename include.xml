@@ -119,4 +119,6 @@
 	
 	<include haxelib="openfl-samples" if="create" />
 	
+	<haxedef name="text_field_fix" />
+
 </extension>
