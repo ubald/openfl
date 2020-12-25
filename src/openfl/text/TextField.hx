@@ -211,6 +211,10 @@ class TextField extends InteractiveObject
 	**/
 	public var backgroundColor(get, set):Int;
 
+	public var selectedColor(get, set):Null<Int>;
+
+	public var selectionColor(get, set):Null<Int>;
+
 	/**
 		Specifies whether the text field has a border. If `true`, the
 		text field has a border. If `false`, the text field has no
@@ -685,6 +689,8 @@ class TextField extends InteractiveObject
 	@:noCompletion private var __htmlText:UTF8String;
 	@:noCompletion private var __textEngine:TextEngine;
 	@:noCompletion private var __textFormat:TextFormat;
+	@:noCompletion private var __selectedColor:Null<Int>;
+	@:noCompletion private var __selectionColor:Null<Int>;
 	#if (js && html5)
 	@:noCompletion private var __div:DivElement;
 	@:noCompletion private var __renderedOnCanvasWhileOnDOM:Bool = false;
@@ -823,6 +829,8 @@ class TextField extends InteractiveObject
 		__offsetY = 0;
 		__mouseWheelEnabled = true;
 		__text = "";
+		__selectedColor = null;
+		__selectionColor = null;
 
 		doubleClickEnabled = true;
 
@@ -2451,6 +2459,38 @@ class TextField extends InteractiveObject
 		}
 
 		return __textEngine.backgroundColor = value;
+	}
+
+	@:noCompletion private function get_selectedColor():Int
+	{
+		return __selectedColor;
+	}
+
+	@:noCompletion private function set_selectedColor(value:Int):Int
+	{
+		if (value != __selectedColor)
+		{
+			__dirty = true;
+			__setRenderDirty();
+		}
+
+		return __selectedColor = value;
+	}
+
+	@:noCompletion private function get_selectionColor():Int
+	{
+		return __selectionColor;
+	}
+
+	@:noCompletion private function set_selectionColor(value:Int):Int
+	{
+		if (value != __selectionColor)
+		{
+			__dirty = true;
+			__setRenderDirty();
+		}
+
+		return __selectionColor = value;
 	}
 
 	@:noCompletion private function get_border():Bool

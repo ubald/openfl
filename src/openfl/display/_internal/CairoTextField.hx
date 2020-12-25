@@ -225,6 +225,16 @@ class CairoTextField
 				scrollY -= textEngine.lineHeights[i];
 			}
 
+			var selectedColor = textField.selectedColor != null ? textField.selectedColor : 0xFFFFFF;
+			var sd_r = ((selectedColor & 0xFF0000) >>> 16) / 0xFF;
+			var sd_g = ((selectedColor & 0x00FF00) >>> 8) / 0xFF;
+			var sd_b = (selectedColor & 0x0000FF) / 0xFF;
+
+			var selectionColor = textField.selectionColor != null ? textField.selectionColor : 0x000000;
+			var sn_r = ((selectionColor & 0xFF0000) >>> 16) / 0xFF;
+			var sn_g = ((selectionColor & 0x00FF00) >>> 8) / 0xFF;
+			var sn_b = (selectionColor & 0x0000FF) / 0xFF;
+
 			var color, r, g, b, font, size, advance;
 
 			for (group in textEngine.layoutGroups)
@@ -360,10 +370,10 @@ class CairoTextField
 
 							if (start != null && end != null)
 							{
-								cairo.setSourceRGB(0, 0, 0);
+								cairo.setSourceRGB(sn_r, sn_g, sn_b);
 								cairo.rectangle(scrollX + start.x - bounds.x, start.y + scrollY, end.x - start.x, group.height);
 								cairo.fill();
-								cairo.setSourceRGB(1, 1, 1);
+								cairo.setSourceRGB(sd_r, sd_g, sd_b);
 
 								// TODO: draw only once
 
